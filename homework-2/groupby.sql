@@ -32,3 +32,8 @@ UNION
 SELECT DISTINCT country FROM employees;
 
 -- 7. страны, в которых зарегистрированы и заказчики (customers) и поставщики (suppliers), но не зарегистрированы работники (employees).
+SELECT DISTINCT country FROM customers
+UNION ALL
+SELECT DISTINCT country FROM suppliers
+EXCEPT
+SELECT DISTINCT country FROM employees;
