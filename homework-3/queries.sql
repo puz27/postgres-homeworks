@@ -1,7 +1,7 @@
 -- Напишите запросы, которые выводят следующую информацию:
 -- 1. Название компании заказчика (company_name из табл. customers) и ФИО сотрудника, работающего над заказом этой компании (см таблицу employees),
 -- когда и заказчик и сотрудник зарегистрированы в городе London, а доставку заказа ведет компания United Package (company_name в табл shippers)
-    SELECT customers.company_name,customers.city, employees.first_name ,employees.last_name, employees.city,shippers.company_name  FROM orders
+    SELECT customers.company_name, CONCAT(employees.first_name ,employees.last_name) AS fio FROM orders
     INNER JOIN customers
     ON orders.customer_id = customers.customer_id AND customers.city = 'London'
     INNER JOIN employees
