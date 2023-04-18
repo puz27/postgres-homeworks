@@ -12,3 +12,4 @@ select DISTINCT city from customers;
 select COUNT(order_id) AS count_all_orders from orders;
 
 -- 5. количество стран, в которые отгружался товар (таблица orders, колонка ship_country)
+select COUNT(DISTINCT ship_country) AS count_all_countrys from orders;
