@@ -5,6 +5,8 @@ import csv
 def get_data_csv(path: str) -> list:
     """
     Get data from file.
+    :param path: Path to file with datas.
+    :return List with datas from file.
     """
     data = []
     try:
@@ -23,6 +25,10 @@ def get_data_csv(path: str) -> list:
 def send_query(table: str, args: list, user: str, password: str) -> None:
     """
     Send SQL queries to Data Base north on localhost
+    :param table: Name of table in database.
+    :param args: List of data for adding.
+    :param user: User name connection.
+    :param password: Password user for connection.
     """
     connection = psycopg2.connect(
         host="localhost",
