@@ -23,6 +23,10 @@ ALTER TABLE Student
 ALTER COLUMN phone TYPE VARCHAR(32)
 
 -- 6. Вставить три любых записи с автогенерацией идентификатора
-
+INSERT INTO student(first_name, last_name, birth_date, phone)
+VALUES 
+('Anton','Antonov','2020-05-25', '12-34-12'),
+('Sergey','Petrov','2020-05-30', '12-34-17'),
+('Ruslan','Antonov','2020-05-11', '12-34-42');
 
 -- 7. Удалить все данные из таблицы со сбросом идентификатор в исходное состояние
