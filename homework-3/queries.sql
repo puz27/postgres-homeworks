@@ -28,8 +28,14 @@
 
 -- 4. уникальные названия продуктов, которых заказано ровно 10 единиц (количество заказанных единиц см в колонке quantity табл order_details)
 -- Этот запрос написать именно с использованием подзапроса.
+    
     SELECT DISTINCT order_details.product_id,order_details.quantity , products.product_id, products.product_name FROM order_details
     INNER JOIN products
     ON order_details.product_id = products.product_id 
     WHERE order_details.quantity = 10
+    ORDER BY product_name
+
+    SELECT DISTINCT products.product_name FROM order_details
+    INNER JOIN products
+    ON order_details.product_id = products.product_id AND 10 = ALL(SELECT order_details.quantity)
     ORDER BY product_name
