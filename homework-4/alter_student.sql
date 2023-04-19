@@ -7,10 +7,12 @@ CREATE TABLE student (
 	phone VARCHAR
 )
 -- 2. Добавить в таблицу student колонку middle_name varchar
-
+ALTER TABLE student 
+ADD COLUMN middle_name varchar
 
 -- 3. Удалить колонку middle_name
-
+ALTER TABLE student
+DROP COLUMN middle_name
 
 -- 4. Переименовать колонку birthday в birth_date
 
