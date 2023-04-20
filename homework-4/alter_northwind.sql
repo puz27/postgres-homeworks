@@ -4,7 +4,8 @@ ALTER TABLE products
 ADD CHECK (unit_price > 0);
 
 -- 2. Добавить ограничение, что поле discontinued таблицы products может содержать только значения 0 или 1
-
+ALTER TABLE products 
+ADD CHECK (discontinued IN (0, 1))
 
 -- 3. Создать новую таблицу, содержащую все продукты, снятые с продажи (discontinued = 1)
 
