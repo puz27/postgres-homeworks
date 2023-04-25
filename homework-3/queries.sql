@@ -39,3 +39,6 @@
     INNER JOIN products
     ON order_details.product_id = products.product_id AND 10 = ALL(SELECT order_details.quantity)
     ORDER BY product_name
+    
+    SELECT DISTINCT product_name from products
+    where EXISTS (SELECT 1 FROM order_details where products.product_id = order_details.product_id AND order_details.quantity = 10)
