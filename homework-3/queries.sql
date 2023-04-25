@@ -42,3 +42,5 @@
     
     SELECT DISTINCT product_name from products
     where EXISTS (SELECT 1 FROM order_details where products.product_id = order_details.product_id AND order_details.quantity = 10)
+    
+    SELECT product_name from products WHERE product_id IN (SELECT product_id FROM order_details WHERE quantity = 10)
