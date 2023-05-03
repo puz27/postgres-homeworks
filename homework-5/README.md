@@ -16,6 +16,6 @@
 [postgresql]
 host=localhost
 user=postgres
-password=12345
+password=y00ddaev
 port=5432
 ```
