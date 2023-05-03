@@ -1,6 +1,7 @@
 import json
 import psycopg2
 from config import config
+import os
 
 
 def main():
@@ -9,7 +10,6 @@ def main():
     db_name = 'my_new_db'
 
     params = config()
-    print(params)
     conn = None
 
     create_database(params, db_name)
@@ -54,12 +54,20 @@ def create_database(params, db_name) -> None:
 
 
 def execute_sql_script(cur, script_file) -> None:
-    """Выполняет скрипт из файла для заполнения БД данными."""
+    path_file = os.path.join(os.getcwd(), script_file)
+    file = open(path_file, 'r', encoding='utf-8')
+    query_create_base = file.read()
+    file.close()
+    cur.execute(query_create_base)
 
 
 def create_suppliers_table(cur) -> None:
     """Создает таблицу suppliers."""
-    pass
+    path_file = os.path.join(os.getcwd(), file_name)
+    file = open(path_file, 'r', encoding='utf-8')
+    data = json.load(file)
+    file.close()
+    return data
 
 
 # def get_suppliers_data(json_file: str) -> list[dict]:
