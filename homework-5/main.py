@@ -7,30 +7,30 @@ import os
 def main():
     script_file = 'fill_db.sql'
     json_file = 'suppliers.json'
-    db_name = 'my_new_db'
+    db_name = 'my_new_db6'
 
     params = config()
     conn = None
 
-    #create_database(params, db_name)
+    create_database(params, db_name)
 
     params.update({'dbname': db_name})
     try:
         with psycopg2.connect(**params) as conn:
             with conn.cursor() as cur:
-                # execute_sql_script(cur, script_file)
-                # print(f"БД {db_name} успешно заполнена")
+                execute_sql_script(cur, script_file)
+                print(f"БД {db_name} успешно заполнена")
 
-                # create_suppliers_table(cur)
-                # print("Таблица suppliers успешно создана")
+                create_suppliers_table(cur)
+                print("Таблица suppliers успешно создана")
 
                 suppliers = get_suppliers_data(json_file)
                 insert_suppliers_data(cur, suppliers)
                 print("Данные в suppliers успешно добавлены")
-                #
-                # add_foreign_keys(cur, json_file)
-                # print(f"FOREIGN KEY успешно добавлены")
-                conn.commit()
+
+                add_foreign_keys(cur, json_file)
+                print(f"FOREIGN KEY успешно добавлены")
+
     except(Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -65,19 +65,18 @@ def create_suppliers_table(cur) -> None:
     """Создает таблицу suppliers."""
 
     query = """CREATE TABLE suppliers (
-    company_name VARCHAR(100),
-    contact VARCHAR(100),
-    address VARCHAR(100),
-    phone VARCHAR(100),
-    fax VARCHAR(100),
-    homepage VARCHAR(100),
-    products VARCHAR(100));
+    company_name VARCHAR(500),
+    contact VARCHAR(500),
+    address VARCHAR(500),
+    phone VARCHAR(500),
+    fax VARCHAR(500),
+    homepage VARCHAR(500),
+    products VARCHAR(500) PRIMARY KEY);
     """
     cur.execute(query)
 
 
-
-def get_suppliers_data(json_file: str) -> list[dict]:
+def get_suppliers_data(json_file: str) -> list:
     """Извлекает данные о поставщиках из JSON-файла и возвращает список словарей с соответствующей информацией."""
     path_file = os.path.join(os.getcwd(), json_file)
     file = open(path_file, 'r', encoding='utf-8')
@@ -86,29 +85,31 @@ def get_suppliers_data(json_file: str) -> list[dict]:
     return data
 
 
-def insert_suppliers_data(cur, suppliers: list[dict]) -> None:
+def insert_suppliers_data(cur, suppliers: list) -> None:
     """Добавляет данные из suppliers в таблицу suppliers."""
     col_count = "".join("%s," * 7)
-    query = f"INSERT INTO suppliers VALUES ({col_count})"
-
-    data = []
+    query = f"INSERT INTO suppliers (company_name, contact, address, phone, fax, homepage, products) VALUES ({col_count[:-1]})"
     all_data = []
-    for i in suppliers:
-        data.append(i["company_name"])
-        data.append(i["contact"])
-        data.append(i["address"])
-        data.append(i["phone"])
-        data.append(i["fax"])
-        data.append(i["homepage"])
-        data.append(str(i["products"]))
-        all_data.append(data)
-    print(all_data)
-    #cur.executemany(query, all_data)
+    for company in suppliers:
+        for prod in company["products"]:
+            data = []
+            data.append(company["company_name"])
+            data.append(company["contact"])
+            data.append(company["address"])
+            data.append(company["phone"])
+            data.append(company["fax"])
+            data.append(company["homepage"])
+            data.append(prod)
+            all_data.append(data)
+    cur.executemany(query, all_data)
 
 
 def add_foreign_keys(cur, json_file) -> None:
     """Добавляет foreign key со ссылкой на supplier_id в таблицу products."""
-    pass
+    query = """ALTER TABLE products
+    ADD FOREIGN KEY (product_name) REFERENCES suppliers(products)
+    """
+    cur.execute(query)
 
 
 if __name__ == '__main__':

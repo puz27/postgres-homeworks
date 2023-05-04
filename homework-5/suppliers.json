@@ -1,5 +1,17 @@
 [
   {
+    "company_name": "Exotic Liquids",
+    "contact": "Charlotte Cooper, Purchasing Manager",
+    "address": "UK; ; EC1 4SD; London; 49 Gilbert St.",
+    "phone": "(171) 555-2222",
+    "fax": "",
+    "homepage": "",
+    "products": [
+      "Chang",
+      "Aniseed Syrup"
+    ]
+  },
+  {
     "company_name": "New Orleans Cajun Delights",
     "contact": "Shelley Burke, Order Administrator",
     "address": "USA; LA; 70117; New Orleans; P.O. Box 78934",
@@ -340,6 +352,18 @@
     "products": [
       "Raclette Courdavault",
       "Camembert Pierrot"
+    ]
+  },
+  {
+    "company_name": "For\u00eats d'\u00e9rables",
+    "contact": "Chantal Goulet, Accounting Manager",
+    "address": "Canada; Qu\u00e9bec; J2S 7S8; Ste-Hyacinthe; 148 rue Chasseur",
+    "phone": "(514) 555-2955",
+    "fax": "(514) 555-2921",
+    "homepage": "",
+    "products": [
+      "Sirop d'\u00e9rable",
+      "Tarte au sucre"
     ]
   }
 ]
